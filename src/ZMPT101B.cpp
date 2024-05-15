@@ -50,11 +50,15 @@ float ZMPT101B::getRmsVoltage(uint8_t loopCount)
 		uint32_t measurements_count = 0;
 		uint32_t t_start = micros();
 
-		while (micros() - t_start < period)
+		while (measurements_count <= SAMPLES)
 		{
-			Vnow = analogRead(pin) - zeroPoint;
-			Vsum += (Vnow * Vnow);
-			measurements_count++;
+			if(micros()-t_start <= (SAMPLE_FREQUENCY/SAMPLES))
+			{
+				Vnow = analogRead(pin) - zeroPoint;
+				Vsum += (Vnow * Vnow);
+				t_start = micros();
+				measurements_count++;
+			}
 		}
 
 		readingVoltage += sqrt(Vsum / measurements_count) / ADC_SCALE * VREF * sensitivity;
