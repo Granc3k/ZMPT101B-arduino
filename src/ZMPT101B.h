@@ -5,6 +5,8 @@
 
 #define DEFAULT_FREQUENCY 50.0f
 #define DEFAULT_SENSITIVITY 500.0f
+#define SAMPLE_FREQUENCY 1000.0f
+#define SAMPLES 1000
 
 #if defined(AVR)
 	#define ADC_SCALE 1023.0f
